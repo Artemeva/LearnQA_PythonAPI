@@ -47,6 +47,6 @@ class MyRequests():
         else:
             raise Exception(f"Bad HTTP method {method} received")
 
+        Logger.add_response(response)
         return response
 
-        Logger.add_response(url, data, headers, cookies, method)
