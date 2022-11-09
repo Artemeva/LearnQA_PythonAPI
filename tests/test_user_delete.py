@@ -72,7 +72,7 @@ class TestUserDelete(BaseCase):
         Assertions.assert_status_code(response4, 404)
         Assertions.assert_response_text(response4,"User not found")
 
-    @allure.description("Try to delete user with user's auth")
+    @allure.description("Try to delete user with another user's auth")
     def test_delete_created_user_by_user2(self):
         # create user 1
         reg_data1 = self.prepare_registration_data()
