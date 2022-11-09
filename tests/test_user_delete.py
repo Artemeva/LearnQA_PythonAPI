@@ -106,7 +106,7 @@ class TestUserDelete(BaseCase):
             "password": password2
         }
 
-        # authorize user 1
+        # authorize user 2
         response2_2 = MyRequests.post("/user/login", data=login_data2)
         auth_sid2 = self.get_cookie(response2_2, 'auth_sid')
         token2 = self.get_header(response2_2, 'x-csrf-token')
