@@ -4,7 +4,7 @@ from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_requests import MyRequests
 
-@allure.epic("User edit  cases")
+@allure.epic("User editing cases")
 class TestUserEdit(BaseCase):
     def setup(self):
         # user registration
@@ -29,6 +29,8 @@ class TestUserEdit(BaseCase):
         self.auth_sid = self.get_cookie(response2, "auth_sid")
         self.token = self.get_header(response2, "x-csrf-token")
 
+    @allure.tag("Positive test")
+    @allure.severity(allure.severity_level.NORMAL)
     @allure.description("This test successfully edits just created user")
     def test_edit_just_created_user(self):
 
@@ -65,7 +67,8 @@ class TestUserEdit(BaseCase):
             f"Wrong firstName of user after edit"
         )
 
-
+    @allure.tag("Negative test")
+    @allure.severity(allure.severity_level.CRITICAL)
     @allure.description("This test tries to edit user without providing auth data")
     def test_edit_user_wo_auth(self):
         # edit user without providing auth data
@@ -78,6 +81,8 @@ class TestUserEdit(BaseCase):
 
         assert response.content.decode("utf-8") == 'Auth token not supplied', f"Unexpected response content = {response.content}"
 
+    @allure.tag("Negative test")
+    @allure.severity(allure.severity_level.CRITICAL)
     @allure.description("This test tries to edit one user while authorized as another")
     def test_edit_user_with_wrong_auth(self):
         # edit user id=2 with auth data from newly created
@@ -105,6 +110,8 @@ class TestUserEdit(BaseCase):
             f"Username changed, but it shouldn't"
         )
 
+    @allure.tag("Negative test")
+    @allure.severity(allure.severity_level.NORMAL)
     @allure.description("This test tries to change email to not valid value")
     def test_change_email_not_valid(self):
         new_email = 'email_without_at.example.com'
@@ -119,6 +126,8 @@ class TestUserEdit(BaseCase):
         Assertions.assert_status_code(response, 400)
         Assertions.assert_response_text(response, 'Invalid email format')
 
+    @allure.tag("Negative test")
+    @allure.severity(allure.severity_level.NORMAL)
     @allure.description("This test tries to change name to not valid value")
     def test_change_name_not_valid(self):
         new_name = 'q'

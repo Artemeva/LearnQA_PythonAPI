@@ -6,6 +6,8 @@ import time
 
 @allure.epic("User deletion cases")
 class TestUserDelete(BaseCase):
+    @allure.tag("Negative test")
+    @allure.severity(allure.severity_level.CRITICAL)
     @allure.description("Try to delete user that can't be deleted")
     def test_delete_user_id_2(self):
         data = {
@@ -28,6 +30,8 @@ class TestUserDelete(BaseCase):
         Assertions.assert_status_code(response2, 400)
         Assertions.assert_response_text(response2,"Please, do not delete test users with ID 1, 2, 3, 4 or 5.")
 
+    @allure.tag("Positive test")
+    @allure.severity(allure.severity_level.NORMAL)
     @allure.description("Try to delete just created user")
     def test_delete_created_user(self):
         #create user
@@ -72,6 +76,8 @@ class TestUserDelete(BaseCase):
         Assertions.assert_status_code(response4, 404)
         Assertions.assert_response_text(response4,"User not found")
 
+    @allure.tag("Negative test")
+    @allure.severity(allure.severity_level.CRITICAL)
     @allure.description("Try to delete user with another user's auth")
     def test_delete_created_user_by_user2(self):
         # create user 1
