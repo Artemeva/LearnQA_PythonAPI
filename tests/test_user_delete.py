@@ -43,6 +43,7 @@ class TestUserDelete(BaseCase):
         response3 = MyRequests.post("/user/login", data=login_data2)
         Assertions.assert_status_code(response3, 200)
 
+
         auth_sid = self.get_cookie(response3, 'auth_sid')
         token = self.get_header(response3, 'x-csrf-token')
 
