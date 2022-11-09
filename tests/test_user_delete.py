@@ -122,5 +122,5 @@ class TestUserDelete(BaseCase):
 
         #get user 1 to ensure it was not deleted
         response4 = MyRequests.get(f"/user/{new_user_id1}")
-        Assertions.assert_code_status(response4, 200)
+        Assertions.assert_status_code(response4, 200)
         Assertions.assert_json_has_key(response4, "username")
