@@ -2,7 +2,7 @@ from lib.my_requests import MyRequests
 from lib.assertions import Assertions
 from lib.base_case import BaseCase
 import allure
-
+import time
 
 @allure.epic("User deletion cases")
 class TestUserDelete(BaseCase):
@@ -19,7 +19,10 @@ class TestUserDelete(BaseCase):
 
         #get user 1 id
         new_user_id = self.get_json_value(response1, 'id')
-        print(new_user_id)
+
+        #wait for time to change
+
+        time.sleep(2)
 
         # create user 2 and authorize
         reg_data2 = self.prepare_registration_data()
@@ -32,12 +35,12 @@ class TestUserDelete(BaseCase):
         email = reg_data2["email"]
         password = reg_data2["password"]
 
-        login_data = {
+        login_data2 = {
             "email": email,
             "password": password
         }
 
-        response3 = MyRequests.post("/user/login", data=login_data)
+        response3 = MyRequests.post("/user/login", data=login_data2)
         Assertions.assert_status_code(response3, 200)
 
         auth_sid = self.get_cookie(response3, 'auth_sid')
@@ -51,4 +54,4 @@ class TestUserDelete(BaseCase):
         )
 
         print(response4.status_code)
-        print(response4.text)
+        print(response4.content)
