@@ -17,7 +17,7 @@ class Assertions:
         try:
             response_as_dict = response.json()
         except:
-            assert False, f"Response is not in JSON formst. Response text is '{response.text}"
+            assert False, f"Response is not in JSON format. Response text is '{response.text}"
 
         assert name in response_as_dict, f"Response JSON doesn't have key '{name}'"
 
